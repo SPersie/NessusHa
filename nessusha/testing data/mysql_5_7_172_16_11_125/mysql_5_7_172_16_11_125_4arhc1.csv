@@ -1,0 +1,1234 @@
+Plugin ID,CVE,CVSS,Risk,Host,Protocol,Port,Name,Synopsis,Description,Solution,See Also,Plugin Output
+"21156","","","None","172.16.11.125","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""MySQL 5.7 Community Edition is not installed"": [PASSED]
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+","n/a","",""
+"33814","","","Medium","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""4.1 Ensure Latest Security Patches Are Applied"" : [WARNING]
+Periodically, updates to MySQL server are released to resolve bugs, mitigate vulnerabilities, and provide new features. It is recommended that MySQL installations are up to date with the latest security updates.
+
+      NOTE: Nessus has not performed this check. This is provided for informational purposes only.
+
+Remote value: 
+
+(Default): ""version"", ""5.7.11""
+
+Policy value: 
+
+""version"", regex:""null""
+
+Solution : 
+
+Install the latest patches for your version or upgrade to the latest version.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|SI-2,HIPAA|164.308(a)(5)(ii)(A),800-171|3.14.1,CSF|ID.RA-1,CSF|PR.IP-12,ITSG-33|SI-2,LEVEL|1NS
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.9 Ensure DML/DDL Grants Are Limited to Specific Databases and Users"" : [FAILED]
+DML/DDL includes the set of privileges used to modify or create data structures. This includes INSERT, SELECT, UPDATE, DELETE, DROP, CREATE, and ALTER privileges.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+regex:"".+"", regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following steps to remediate this setting:
+   1. Enumerate the unauthorized users, hosts, and databases returned in the result set of the audit procedure
+   2. For each user, issue the following SQL statement (replace '<user>' with the unauthorized user, '<host>' with host name, and '<database>' with the database name):
+
+   REVOKE SELECT ON <host>.<database> FROM <user>;
+   REVOKE INSERT ON <host>.<database> FROM <user>;
+   REVOKE UPDATE ON <host>.<database> FROM <user>;
+   REVOKE DELETE ON <host>.<database> FROM <user>;
+   REVOKE CREATE ON <host>.<database> FROM <user>;
+   REVOKE DROP ON <host>.<database> FROM <user>;
+   REVOKE ALTER ON <host>.<database> FROM <user>;
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""4.4 Ensure 'local_infile' Is Disabled"" : [FAILED]
+The local_infile parameter dictates whether files located on the MySQL client's computer can be loaded or selected via LOAD DATA INFILE or SELECT local_file.
+
+Remote value: 
+
+(Default): ""local_infile"", ""ON""
+
+Policy value: 
+
+""local_infile"", ""off""
+
+Solution : 
+
+Add the following line to the [mysqld] section of the MySQL configuration file and restart the MySQL service:
+   local-infile=0
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|CM-7,CIP|007-6-R1,CSCv6|9.1,PCI-DSSv3.1|2.2.2,PCI-DSSv3.1|2.2.3,PCI-DSSv3.2|2.2.2,PCI-DSSv3.2|2.2.3,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""9.2 Ensure 'MASTER_SSL_VERIFY_SERVER_CERT' Is Set to 'YES' or '1'"" : [WARNING]
+In the MySQL slave context the setting MASTER_SSL_VERIFY_SERVER_CERT indicates whether the slave should verify the master's certificate. This configuration item may be set to Yes or No, and unless SSL has been enabled on the slave, the value will be ignored.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+1
+
+Solution : 
+
+To remediate this setting you must use the CHANGE MASTER TO command.
+   STOP SLAVE; -- required if replication was already running
+   CHANGE MASTER TO MASTER_SSL_VERIFY_SERVER_CERT=1;
+   START SLAVE; -- required if you want to restart replication
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CSF|PR.AC-1,ITSG-33|IA-5,LEVEL|1S
+","n/a","",""
+"33814","","","Medium","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""9.1 Ensure Replication Traffic Is Secured"" : [WARNING]
+The replication traffic between servers should be secured. Check if the replication traffic is using
+    -A private network
+    -A VPN
+    -SSL/TLS
+    -A SSH Tunnel
+NOTE : Nessus has not performed this query, and this check is only provided for informational purposes.
+
+Remote value: 
+
+(Default): NULL
+
+Solution : 
+
+Secure the network traffic. When the replication traffic is not secured someone might be able to capture passwords and other sensitive information when sent to the slave.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.4 Ensure 'default_password_lifetime' Is Less Than Or Equal To '90'"" : [PASSED]
+Password expiry provides passwords with a time bounded lifetime.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CIP|007-6-R5,HIPAA|164.308(a)(5)(ii)(D),PCI-DSSv3.1|8.2.4,PCI-DSSv3.2|8.2.4,CN-L3|7.1.2.7(e),CN-L3|7.1.3.1(b),CSF|PR.AC-1,ISO/IEC-27001|A.9.4.3,ITSG-33|IA-5,TBA-FIISB|26.2.2,800-171|3.5.10,800-171|3.5.7,800-171|3.5.8,800-171|3.5.9,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""4.8 Ensure 'secure_file_priv' Is Not Empty"" : [FAILED]
+The secure_file_priv option restricts to paths used by LOAD DATA INFILE or SELECT local_file. It is recommended that this option be set to a file system location that contains only resources expected to be loaded by MySQL.
+
+Remote value: 
+
+(Default): ""secure_file_priv"", """"
+
+Policy value: 
+
+""secure_file_priv"", regex:"".+""
+
+Solution : 
+
+Add the following line to the [mysqld] section of the MySQL configuration file and restart the MySQL service:
+   secure_file_priv=<path_to_load_directory>
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|CM-6,CSCv6|3.1,PCI-DSSv3.1|2.2.4,PCI-DSSv3.2|2.2.4,800-171|3.4.2,CSF|PR.IP-1,ITSG-33|CM-6,LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.3 Ensure Passwords Are Set for All MySQL Accounts"" : [PASSED]
+Blank passwords allow a user to login without using a password.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+NULL, NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CIP|007-6-R5,HIPAA|164.308(a)(5)(ii)(D),PCI-DSSv3.1|8.2.3,PCI-DSSv3.2|8.2.3,800-171|3.5.7,CN-L3|7.1.2.7(e),CN-L3|7.1.3.1(b),CSF|PR.AC-1,ISO/IEC-27001|A.9.4.3,ITSG-33|IA-5,TBA-FIISB|26.2.1,TBA-FIISB|26.2.4,LEVEL|1S,LEVEL|2S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.5 Ensure 'shutdown_priv' Is Not Set to 'Y' for Non-Administrative Users"" : [FAILED]
+The SHUTDOWN privilege simply enables use of the shutdown option to the mysqladmin command, which allows a user with the SHUTDOWN privilege the ability to shut down the MySQL server.
+
+Remote value: 
+
+(Default): ""localhost"", ""root""""%"", ""heroadmin""
+
+Policy value: 
+
+regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following steps to remediate this setting:
+   1. Enumerate the non-administrative users found in the result set of the audit procedure
+   2. For each user, issue the following SQL statement (replace '<user>' with the non- administrative user):
+
+   REVOKE SHUTDOWN ON *.* FROM '<user>';
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.5 Ensure Password Policy Is in Place - 'validate_password_special_char_count'"" : [FAILED]
+Password complexity includes password characteristics such as length, case, length, and character sets.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+""validate_password_special_char_count"", regex:""[1-9]""
+
+Solution : 
+
+Add to the global configuration:
+   plugin-load=validate_password.so
+   validate-password=FORCE_PLUS_PERMANENT
+   validate_password_length=14
+   validate_password_mixed_case_count=1
+   validate_password_number_count=1
+   validate_password_special_char_count=1
+   validate_password_policy=MEDIUM
+
+   And change passwords for users which have passwords which are identical to their username.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CIP|007-6-R5,HIPAA|164.308(a)(5)(ii)(D),PCI-DSSv3.1|8.2.3,PCI-DSSv3.2|8.2.3,800-171|3.5.7,CN-L3|7.1.2.7(e),CN-L3|7.1.3.1(b),CSF|PR.AC-1,ISO/IEC-27001|A.9.4.3,ITSG-33|IA-5,TBA-FIISB|26.2.1,TBA-FIISB|26.2.4,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""4.6 Ensure '-skip-symbolic-links' Is Enabled"" : [FAILED]
+The symbolic-links and skip-symbolic-links options for MySQL determine whether symbolic link support is available. When use of symbolic links are enabled, they have different effects depending on the host platform. When symbolic links are disabled, then symbolic links stored in files or entries in tables are not used by the database.
+
+Remote value: 
+
+(Default): ""have_symlink"", ""YES""
+
+Policy value: 
+
+""have_symlink"", ""disabled""
+
+Solution : 
+
+Perform the following actions to remediate this setting:
+   - Open the MySQL configuration file (my.cnf)
+   - Locate skip_symbolic_links in the configuration
+   - Set the skip_symbolic_links to YES
+   NOTE: If skip_symbolic_links does not exist, add it to the configuration file in the mysqld section.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|CM-6,CSCv6|3.1,PCI-DSSv3.1|2.2.4,PCI-DSSv3.2|2.2.4,800-171|3.4.2,CSF|PR.IP-1,ITSG-33|CM-6,LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""6.2 Ensure Log Files Are Stored on a Non-System Partition"" : [PASSED]
+MySQL log files can be set in the MySQL configuration to exist anywhere on the filesystem. It is common practice to ensure that the system filesystem is left uncluttered by application logs. System filesystems include the root, /var, or /usr.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+NULL, NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|SC-5,CSF|PR.DS-4,ITSG-33|SC-5,LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.7 Ensure No Anonymous Accounts Exist"" : [PASSED]
+Anonymous accounts are users with empty usernames (''). Anonymous accounts have no passwords, so anyone can use them to connect to the MySQL server.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+NULL, NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-14,ITSG-33|AC-14,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.5 Ensure Password Policy Is in Place - 'validate_password_mixed_case_count'"" : [FAILED]
+Password complexity includes password characteristics such as length, case, length, and character sets.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+""validate_password_mixed_case_count"", regex:""[1-9]""
+
+Solution : 
+
+Add to the global configuration:
+   plugin-load=validate_password.so
+   validate-password=FORCE_PLUS_PERMANENT
+   validate_password_length=14
+   validate_password_mixed_case_count=1
+   validate_password_number_count=1
+   validate_password_special_char_count=1
+   validate_password_policy=MEDIUM
+
+   And change passwords for users which have passwords which are identical to their username.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CIP|007-6-R5,HIPAA|164.308(a)(5)(ii)(D),PCI-DSSv3.1|8.2.3,PCI-DSSv3.2|8.2.3,800-171|3.5.7,CN-L3|7.1.2.7(e),CN-L3|7.1.3.1(b),CSF|PR.AC-1,ISO/IEC-27001|A.9.4.3,ITSG-33|IA-5,TBA-FIISB|26.2.1,TBA-FIISB|26.2.4,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""8.2 Ensure 'ssl_type' Is Set to 'ANY', 'X509', or 'SPECIFIED' for All Remote Users"" : [FAILED]
+All network traffic must use SSL/TLS when traveling over untrusted networks. SSL/TLS should be enforced on a per-user basis for users which enter the system through the network.
+
+Remote value: 
+
+(Default): """", ""%"", ""heroadmin""
+
+Policy value: 
+
+regex:"".+"", regex:"".+"", regex:""(any|x509|specified)""
+
+Solution : 
+
+Use the GRANT statement to require the use of SSL: GRANT USAGE ON *.* TO 'my_user'@'app1.example.com' REQUIRE SSL; Note that REQUIRE SSL only enforces SSL. There are options like REQUIRE X509, REQUIRE ISSUER, REQUIRE SUBJECT which can be used to further restrict connection options.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|SC-8,800-171|3.13.8,CSF|PR.DS-2,CSF|PR.DS-5,ISO/IEC-27001|A.13.2.3,ITSG-33|SC-8,TBA-FIISB|29.1,LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.1 Ensure Only Administrative Users Have Full Database Access 'mysql.db'"" : [PASSED]
+The mysql.user and mysql.db tables list a variety of privileges that can be granted (or denied) to MySQL users. Some of the privileges of concern include: Select_priv, Insert_priv, Update_priv, Delete_priv, Drop_priv, and so on. Typically, these privileges should not be available to every MySQL user and often are reserved for administrative use only.
+
+Remote value: 
+
+(Default): NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""1.1 Place Databases on Non-System Partitions"" : [PASSED]
+It is generally accepted that host operating systems should include different filesystem partitions for different purposes. One set of filesystems are typically called 'system partitions', and are generally reserved for host system/application operation. The other set of filesystems are typically called 'non-system partitions', and such locations are generally reserved for storing data.
+
+Remote value: 
+
+(Default): ""datadir"", ""D:\infrasys\mydata\data\""
+
+Policy value: 
+
+""datadir"", regex:""^([^c][:][\\].+|/.+)$""
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|SC-5,CSF|PR.DS-4,ITSG-33|SC-5,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.6 Ensure No Users Have Wildcard Hostnames"" : [FAILED]
+MySQL can make use of host wildcards when granting permissions to users on specific databases. For example, you may grant a given privilege to '<user>'@'%'.
+
+Remote value: 
+
+(Default): ""%"", ""heroadmin""
+
+Policy value: 
+
+NULL, NULL
+
+Solution : 
+
+Perform the following actions to remediate this setting:
+   1. Enumerate all users returned after running the audit procedure
+   2. Either ALTER the user's host to be specific or DROP the user
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-3,800-171|3.1.1,CSF|PR.AC-4,CSF|PR.PT-3,ISO/IEC-27001|A.9.4.1,ITSG-33|AC-3,LEVEL|1S,LEVEL|2S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""9.4 Ensure 'super_priv' Is Not Set to 'Y' for Replication Users"" : [PASSED]
+The SUPER privilege found in the mysql.user table governs the use of a variety of MySQL features. These features include, CHANGE MASTER TO, KILL, mysqladmin kill option, PURGE BINARY LOGS, SET GLOBAL, mysqladmin debug option, logging control, and more.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+NULL, NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.7 Ensure 'grant_priv' Is Not Set to 'Y' for Non-Administrative Users 'mysql.user'"" : [FAILED]
+The GRANT OPTION privilege exists in different contexts (mysql.user, mysql.db) for the purpose of governing the ability of a privileged user to manipulate the privileges of other users.
+
+Remote value: 
+
+(Default): ""localhost"", ""root""""%"", ""heroadmin""
+
+Policy value: 
+
+regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following steps to remediate this setting:
+   1. Enumerate the non-administrative users found in the result sets of the audit procedure
+   2. For each user, issue the following SQL statement (replace '<user>' with the non- administrative user:
+
+   REVOKE GRANT OPTION ON *.* FROM <user>;
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.8 Ensure 'repl_slave_priv' Is Not Set to 'Y' for Non-Slave Users"" : [FAILED]
+The REPLICATION SLAVE privilege governs whether a given user (in the context of the master server) can request updates that have been made on the master server.
+
+Remote value: 
+
+(Default): ""localhost"", ""root""""%"", ""heroadmin""
+
+Policy value: 
+
+regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following steps to remediate this setting:
+   1. Enumerate the non-slave users found in the result set of the audit procedure
+   2. For each user, issue the following SQL statement (replace '<user>' with the non- slave user):
+
+   REVOKE REPLICATION SLAVE ON *.* FROM <user>;
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""2.6 Set a Password Expiry Policy for Specific Users"" : [FAILED]
+Password expiry for specific users provides user passwords with a unique time bounded lifetime.
+
+Remote value: 
+
+(Default): ""root""""mysql.sys""""heroadmin""
+
+Policy value: 
+
+NULL
+
+Solution : 
+
+Using the user and host information from the audit procedure, set each user a password lifetime e.g.
+                  ALTER USER 'jeffrey'@'localhost' PASSWORD EXPIRE INTERVAL 90 DAY;
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CIP|007-6-R5,HIPAA|164.308(a)(5)(ii)(D),PCI-DSSv3.1|8.2.4,PCI-DSSv3.2|8.2.4,CN-L3|7.1.2.7(e),CN-L3|7.1.3.1(b),CSF|PR.AC-1,ISO/IEC-27001|A.9.4.3,ITSG-33|IA-5,TBA-FIISB|26.2.2,800-171|3.5.10,800-171|3.5.7,800-171|3.5.8,800-171|3.5.9,LEVEL|1NS
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.7 Ensure 'grant_priv' Is Not Set to 'Y' for Non-Administrative Users 'mysql.db'"" : [FAILED]
+The GRANT OPTION privilege exists in different contexts (mysql.user, mysql.db) for the purpose of governing the ability of a privileged user to manipulate the privileges of other users.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following steps to remediate this setting:
+   1. Enumerate the non-administrative users found in the result sets of the audit procedure
+   2. For each user, issue the following SQL statement (replace '<user>' with the non- administrative user:
+
+   REVOKE GRANT OPTION ON *.* FROM <user>;
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.5 Ensure Password Complexity Is in Place - 'validate_password_length'"" : [FAILED]
+Password complexity includes password characteristics such as length, case, length, and character sets.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+""validate_password_length"", regex:""(1[4-9]|[2-9][0-9])""
+
+Solution : 
+
+Add to the global configuration:
+   plugin-load=validate_password.so
+   validate-password=FORCE_PLUS_PERMANENT
+   validate_password_length=14
+   validate_password_mixed_case_count=1
+   validate_password_number_count=1
+   validate_password_special_char_count=1
+   validate_password_policy=MEDIUM
+
+   And change passwords for users which have passwords which are identical to their username.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CIP|007-6-R5,HIPAA|164.308(a)(5)(ii)(D),PCI-DSSv3.1|8.2.3,PCI-DSSv3.2|8.2.3,800-171|3.5.7,CN-L3|7.1.2.7(e),CN-L3|7.1.3.1(b),CSF|PR.AC-1,ISO/IEC-27001|A.9.4.3,ITSG-33|IA-5,TBA-FIISB|26.2.1,TBA-FIISB|26.2.4,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.6 Ensure 'create_user_priv' Is Not Set to 'Y' for Non-Administrative Users"" : [FAILED]
+The CREATE USER privilege governs the right of a given user to add or remove users, change existing users' names, or revoke existing users' privileges.
+
+Remote value: 
+
+(Default): ""localhost"", ""root""""%"", ""heroadmin""
+
+Policy value: 
+
+regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following steps to remediate this setting:
+   1. Enumerate the non-administrative users found in the result set of the audit procedure
+   2. For each user, issue the following SQL statement (replace '<user>' with the non- administrative user):
+
+   REVOKE CREATE USER ON *.* FROM '<user>';
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""9.5 Ensure No Replication Users Have Wildcard Hostnames"" : [PASSED]
+MySQL can make use of host wildcards when granting permissions to users on specific databases. For example, you may grant a given privilege to '<user>'@'%'.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+NULL, NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-3,800-171|3.1.1,CSF|PR.AC-4,CSF|PR.PT-3,ISO/IEC-27001|A.9.4.1,ITSG-33|AC-3,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.2 Ensure 'file_priv' Is Not Set to 'Y' for Non-Administrative Users"" : [FAILED]
+The File_priv privilege found in the mysql.user table is used to allow or disallow a user from reading and writing files on the server host. Any user with the File_priv right granted has the ability to:
+   - Read files from the local file system that are readable by the MySQL server (this includes world-readable files)
+   - Write files to the local file system where the MySQL server has write access
+
+Remote value: 
+
+(Default): ""localhost"", ""root""""%"", ""heroadmin""
+
+Policy value: 
+
+regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following steps to remediate this setting:
+   1. Enumerate the non-administrative users found in the result set of the audit procedure
+   2. For each user, issue the following SQL statement (replace '<user>' with the non- administrative user:
+
+   REVOKE FILE ON *.* FROM '<user>';
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1NS
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.5 Ensure Password Policy Is in Place - 'validate_password_number_count'"" : [FAILED]
+Password complexity includes password characteristics such as length, case, length, and character sets.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+""validate_password_number_count"", regex:""[1-9]""
+
+Solution : 
+
+Add to the global configuration:
+   plugin-load=validate_password.so
+   validate-password=FORCE_PLUS_PERMANENT
+   validate_password_length=14
+   validate_password_mixed_case_count=1
+   validate_password_number_count=1
+   validate_password_special_char_count=1
+   validate_password_policy=MEDIUM
+
+   And change passwords for users which have passwords which are identical to their username.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CIP|007-6-R5,HIPAA|164.308(a)(5)(ii)(D),PCI-DSSv3.1|8.2.3,PCI-DSSv3.2|8.2.3,800-171|3.5.7,CN-L3|7.1.2.7(e),CN-L3|7.1.3.1(b),CSF|PR.AC-1,ISO/IEC-27001|A.9.4.3,ITSG-33|IA-5,TBA-FIISB|26.2.1,TBA-FIISB|26.2.4,LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""6.1 Ensure 'log_error' Is Not Empty"" : [PASSED]
+The error log contains information about events such as mysqld starting and stopping, when a table needs to be checked or repaired, and, depending on the host operating system, stack traces when mysqld fails.
+
+Remote value: 
+
+(Default): ""log_error"", ""D:\infrasys\mydata\data\MOSPOS01.err""
+
+Policy value: 
+
+""log_error"", regex:"".+""
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AU-12,800-171|3.3.1,800-171|3.3.2,CN-L3|7.1.3.3(a),CN-L3|7.1.3.3(b),CN-L3|7.1.3.3(c),CSF|DE.CM-1,CSF|DE.CM-3,CSF|DE.CM-7,CSF|PR.PT-1,ISO/IEC-27001|A.12.4.1,ITSG-33|AU-12,TBA-FIISB|45.1.1,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.2 Ensure 'sql_mode' Contains 'NO_AUTO_CREATE_USER' - '@@global.sql_mode'"" : [FAILED]
+NO_AUTO_CREATE_USER is an option for sql_mode that prevents a GRANT statement from automatically creating a user when authentication information is not provided.
+
+Remote value: 
+
+(Default): ""STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION""
+
+Policy value: 
+
+regex:""no_auto_create_user""
+
+Solution : 
+
+Perform the following actions to remediate this setting:
+   1. Open the MySQL configuration file (my.cnf)
+   2. Find the sql_mode setting in the [mysqld] area
+   3. Add the NO_AUTO_CREATE_USER to the sql_mode setting
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,PCI-DSSv3.1|7.1.2,PCI-DSSv3.2|7.1.2,800-171|3.1.5,CN-L3|7.1.3.2(b),CN-L3|7.1.3.2(g),CSF|PR.AC-4,CSF|PR.DS-5,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.1 Ensure Only Administrative Users Have Full Database Access 'mysql.user'"" : [FAILED]
+The mysql.user and mysql.db tables list a variety of privileges that can be granted (or denied) to MySQL users. Some of the privileges of concern include: Select_priv, Insert_priv, Update_priv, Delete_priv, Drop_priv, and so on. Typically, these privileges should not be available to every MySQL user and often are reserved for administrative use only.
+
+Remote value: 
+
+(Default): ""localhost"", ""root""""%"", ""heroadmin""
+
+Policy value: 
+
+regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following actions to remediate this setting: 1. Enumerate non-administrative users resulting from the audit procedure 2. For each non-administrative user, use the REVOKE statement to remove privileges as appropriate
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""4.2 Ensure the 'test' Database Is Not Installed"" : [PASSED]
+The default MySQL installation comes with an unused database called test. It is recommended that the test database be dropped.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|CM-7,CIP|007-6-R1,CSCv6|9.1,PCI-DSSv3.1|2.2.2,PCI-DSSv3.1|2.2.3,PCI-DSSv3.2|2.2.2,PCI-DSSv3.2|2.2.3,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""5.4 Ensure 'super_priv' Is Not Set to 'Y' for Non-Administrative Users"" : [FAILED]
+The SUPER privilege found in the mysql.user table governs the use of a variety of MySQL features. These features include, CHANGE MASTER TO, KILL, mysqladmin kill option, PURGE BINARY LOGS, SET GLOBAL, mysqladmin debug option, logging control, and more.
+
+Remote value: 
+
+(Default): ""localhost"", ""root""""%"", ""heroadmin""
+
+Policy value: 
+
+regex:"".+"", ""root""
+
+Solution : 
+
+Perform the following steps to remediate this setting:
+   1. Enumerate the non-administrative users found in the result set of the audit procedure
+   2. For each user, issue the following SQL statement (replace '<user>' with the non- administrative user:
+
+   REVOKE SUPER ON *.* FROM '<user>';
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,CSCv6|5.1,800-171|3.1.5,CSF|PR.AC-4,ISO/IEC-27001|A.9.2.3,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.2 Ensure 'sql_mode' Contains 'NO_AUTO_CREATE_USER' - '@@session.sql_mode'"" : [FAILED]
+NO_AUTO_CREATE_USER is an option for sql_mode that prevents a GRANT statement from automatically creating a user when authentication information is not provided.
+
+Remote value: 
+
+(Default): ""STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION""
+
+Policy value: 
+
+regex:""no_auto_create_user""
+
+Solution : 
+
+Perform the following actions to remediate this setting:
+   1. Open the MySQL configuration file (my.cnf)
+   2. Find the sql_mode setting in the [mysqld] area
+   3. Add the NO_AUTO_CREATE_USER to the sql_mode setting
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|AC-6,PCI-DSSv3.1|7.1.2,PCI-DSSv3.2|7.1.2,800-171|3.1.5,CN-L3|7.1.3.2(b),CN-L3|7.1.3.2(g),CSF|PR.AC-4,CSF|PR.DS-5,ITSG-33|AC-6,LEVEL|1S
+","n/a","",""
+"33814","","","None","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""4.7 Ensure the 'daemon_memcached' Plugin Is Disabled"" : [PASSED]
+The InnoDB memcached Plugin allows users to access data stored in InnoDB with the memcached protocol.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+NULL, NULL
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|CM-7,CIP|007-6-R1,CSCv6|9.1,PCI-DSSv3.1|2.2.2,PCI-DSSv3.1|2.2.3,PCI-DSSv3.2|2.2.2,PCI-DSSv3.2|2.2.3,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""8.1 Ensure 'have_ssl' Is Set to 'YES'"" : [FAILED]
+All network traffic must use SSL/TLS when traveling over untrusted networks.
+
+Remote value: 
+
+(Default): ""have_ssl"", ""DISABLED""
+
+Policy value: 
+
+""have_ssl"", ""yes""
+
+Solution : 
+
+Follow the procedures as documented in the MySQL 5.6 Reference Manual to setup SSL.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|SC-8,800-171|3.13.8,CSF|PR.DS-2,CSF|PR.DS-5,ISO/IEC-27001|A.13.2.3,ITSG-33|SC-8,TBA-FIISB|29.1,LEVEL|1S
+","n/a","",""
+"33814","","","High","172.16.11.125","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""7.5 Ensure Password Policy Is in Place - 'validate_password_policy'"" : [FAILED]
+Password complexity includes password characteristics such as length, case, length, and character sets.
+
+Remote value: 
+
+(Default): NULL
+
+Policy value: 
+
+""validate_password_policy"", regex:""(medium|strong)""
+
+Solution : 
+
+Add to the global configuration:
+   plugin-load=validate_password.so
+   validate-password=FORCE_PLUS_PERMANENT
+   validate_password_length=14
+   validate_password_mixed_case_count=1
+   validate_password_number_count=1
+   validate_password_special_char_count=1
+   validate_password_policy=MEDIUM
+
+   And change passwords for users which have passwords which are identical to their username.
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/mysql/CIS_Oracle_MySQL_Community_Server_5.7_Benchmark_v1.0.0.pdf
+
+Reference(s) : 
+
+800-53|IA-5,CIP|007-6-R5,HIPAA|164.308(a)(5)(ii)(D),PCI-DSSv3.1|8.2.3,PCI-DSSv3.2|8.2.3,800-171|3.5.7,CN-L3|7.1.2.7(e),CN-L3|7.1.3.1(b),CSF|PR.AC-1,ISO/IEC-27001|A.9.4.3,ITSG-33|IA-5,TBA-FIISB|26.2.1,TBA-FIISB|26.2.4,LEVEL|1S
+","n/a","",""
+"34220","","","None","172.16.11.125","tcp","80","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 80/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","135","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 135/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","445","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 445/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","1311","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 1311/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","3306","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 3306/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","4369","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 4369/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","4500","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 4500/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","4501","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 4501/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","5672","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5672/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","5800","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5800/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","5900","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5900/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","5985","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5985/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","6001","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 6001/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","6010","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 6010/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","7070","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 7070/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","8009","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 8009/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","8080","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 8080/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","10000","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 10000/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","15672","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 15672/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","25672","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 25672/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","46001","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 46001/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","47001","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 47001/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","48001","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 48001/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49152","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49152/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49153","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49153/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49154","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49154/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49155","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49155/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49678","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49678/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49717","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49717/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49896","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49896/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49948","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49948/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","49957","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49957/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50206","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50206/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50227","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50227/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50231","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50231/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50270","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50270/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50271","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50271/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50351","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50351/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50399","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50399/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50575","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50575/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50701","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50701/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","50768","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50768/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","51068","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 51068/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","51246","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 51246/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","51450","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 51450/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","51727","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 51727/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","52072","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 52072/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","52156","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 52156/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","52327","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 52327/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","52519","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 52519/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","52577","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 52577/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","52830","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 52830/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","52976","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 52976/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","53078","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 53078/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","53546","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 53546/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","53587","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 53587/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","53702","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 53702/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","53717","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 53717/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","53752","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 53752/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","53797","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 53797/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","54528","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 54528/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","54585","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 54585/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","54625","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 54625/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","54678","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 54678/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","54947","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 54947/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","55018","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 55018/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","55101","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 55101/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","55163","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 55163/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","55413","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 55413/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","55452","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 55452/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","55704","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 55704/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","55782","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 55782/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56007","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56007/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56078","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56078/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56102","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56102/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56203","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56203/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56208","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56208/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56244","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56244/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56287","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56287/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56348","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56348/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56625","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56625/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56659","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56659/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56816","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56816/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","56943","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 56943/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","57088","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 57088/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","57180","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 57180/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","57433","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 57433/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","57456","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 57456/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","57509","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 57509/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","57513","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 57513/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","57909","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 57909/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","57995","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 57995/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58009","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58009/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58312","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58312/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58544","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58544/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58599","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58599/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58802","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58802/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58832","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58832/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58957","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58957/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58980","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58980/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","58992","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58992/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","59083","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 59083/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","59088","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 59088/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","59105","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 59105/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","59629","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 59629/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","59706","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 59706/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","59862","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 59862/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60053","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60053/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60117","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60117/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60145","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60145/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60160","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60160/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60423","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60423/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60497","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60497/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60575","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60575/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60606","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60606/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","60635","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 60635/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61015","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61015/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61137","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61137/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61155","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61155/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61298","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61298/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61433","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61433/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61519","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61519/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61549","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61549/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61845","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61845/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61883","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61883/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","61888","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61888/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","62013","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 62013/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","62079","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 62079/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","62212","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 62212/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","62348","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 62348/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","62556","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 62556/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","62708","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 62708/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","62863","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 62863/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","62896","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 62896/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","63044","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63044/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","63144","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63144/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","63601","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63601/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","63665","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63665/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","63876","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63876/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","63884","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63884/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","63948","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63948/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","64183","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 64183/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","64485","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 64485/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","65098","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 65098/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","65268","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 65268/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","65461","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 65461/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","65478","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 65478/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","65515","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 65515/tcp was found to be open"
+"34220","","","None","172.16.11.125","tcp","139","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 139/tcp was found to be open"
+"34220","","","None","172.16.11.125","udp","123","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 123/udp was found to be open"
+"34220","","","None","172.16.11.125","udp","500","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 500/udp was found to be open"
+"34220","","","None","172.16.11.125","udp","4500","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 4500/udp was found to be open"
+"34220","","","None","172.16.11.125","udp","5353","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5353/udp was found to be open"
+"34220","","","None","172.16.11.125","udp","5355","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5355/udp was found to be open"
+"34220","","","None","172.16.11.125","udp","58133","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 58133/udp was found to be open"
+"34220","","","None","172.16.11.125","udp","137","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 137/udp was found to be open"
+"34220","","","None","172.16.11.125","udp","138","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 138/udp was found to be open"
+"34220","","","None","172.16.11.125","tcp","0","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","
+Nessus was able to find 160 open ports.
+"

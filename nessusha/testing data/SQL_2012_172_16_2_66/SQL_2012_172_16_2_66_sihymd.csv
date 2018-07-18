@@ -1,0 +1,365 @@
+Plugin ID,CVE,CVSS,Risk,Host,Protocol,Port,Name,Synopsis,Description,Solution,See Also,Plugin Output
+"21156","","","None","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""2.10 Ensure Unnecessary SQL Server Protocols - 'Shared Memory protocol is disabled'"": [PASSED]
+
+SQL Server supports Shared Memory, Named Pipes, TCP/IP and VIA protocols. However, SQL Server should be configured to use the bare minimum required based on the organization's needs.
+
+Rationale:
+
+Using fewer protocols minimizes the attack surface of SQL Server and, in some cases, can protect it from remote attacks.
+
+Reference(s) : 
+
+800-53|CM-7,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,CIP|007-6-R1,CSCv6|9.1,LEVEL|1NS,PCI-DSSv3.1|2.2.2,PCI-DSSv3.1|2.2.3,PCI-DSSv3.2|2.2.2,PCI-DSSv3.2|2.2.3,PCI-DSS|2.2.2
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/sqlserver/CIS_Microsoft_SQL_Server_2012_Benchmark_v1.4.0.pdf
+
+Remote value: 'Pass'
+Policy value: 'pass'
+","n/a","",""
+"21156","","","None","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""2.10 Ensure Unnecessary SQL Server Protocols - 'Named Pipes protocol is disabled'"": [PASSED]
+
+SQL Server supports Shared Memory, Named Pipes, TCP/IP and VIA protocols. However, SQL Server should be configured to use the bare minimum required based on the organization's needs.
+
+Rationale:
+
+Using fewer protocols minimizes the attack surface of SQL Server and, in some cases, can protect it from remote attacks.
+
+Reference(s) : 
+
+800-53|CM-7,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,CIP|007-6-R1,LEVEL|1NS,PCI-DSSv3.1|2.2.2,PCI-DSSv3.1|2.2.3,PCI-DSSv3.2|2.2.2,PCI-DSSv3.2|2.2.3,PCI-DSS|2.2.2,CSCv6|9.1
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/sqlserver/CIS_Microsoft_SQL_Server_2012_Benchmark_v1.4.0.pdf
+
+Remote value: 'Pass'
+Policy value: 'pass'
+","n/a","",""
+"21156","","","High","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""2.10 Ensure Unnecessary SQL Server Protocols - 'TCP/IP protocol is disabled'"": [FAILED]
+
+SQL Server supports Shared Memory, Named Pipes, TCP/IP and VIA protocols. However, SQL Server should be configured to use the bare minimum required based on the organization's needs.
+
+Rationale:
+
+Using fewer protocols minimizes the attack surface of SQL Server and, in some cases, can protect it from remote attacks.
+
+Reference(s) : 
+
+800-53|CM-7,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,CIP|007-6-R1,LEVEL|1NS,PCI-DSSv3.1|2.2.2,PCI-DSSv3.1|2.2.3,PCI-DSSv3.2|2.2.2,PCI-DSSv3.2|2.2.3,PCI-DSS|2.2.2,CSCv6|9.1
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/sqlserver/CIS_Microsoft_SQL_Server_2012_Benchmark_v1.4.0.pdf
+
+Solution : 
+
+Open SQL Server Configuration Manager; go to the SQL Server Network Configuration. Ensure that only required protocols are enabled. Disable protocols not necessary.
+
+Impact:
+
+The Database Engine must be stopped and restarted for the change to take effect.
+
+Default Value:
+
+By default, TCP/IP and Shared Memory protocols are enabled on all commercial editions.
+
+Remote value: 'Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQLServer\SuperSocketNetLib\Tcp
+Enabled : 1
+FAIL'
+Policy value: 'pass'
+","n/a","",""
+"21156","","","None","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""2.10 Ensure Unnecessary SQL Server Protocols - 'VIA protocol is disabled'"": [PASSED]
+
+SQL Server supports Shared Memory, Named Pipes, TCP/IP and VIA protocols. However, SQL Server should be configured to use the bare minimum required based on the organization's needs.
+
+Rationale:
+
+Using fewer protocols minimizes the attack surface of SQL Server and, in some cases, can protect it from remote attacks.
+
+Reference(s) : 
+
+800-53|CM-7,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,CIP|007-6-R1,LEVEL|1NS,PCI-DSSv3.1|2.2.2,PCI-DSSv3.1|2.2.3,PCI-DSSv3.2|2.2.2,PCI-DSSv3.2|2.2.3,PCI-DSS|2.2.2,CSCv6|9.1
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/sqlserver/CIS_Microsoft_SQL_Server_2012_Benchmark_v1.4.0.pdf
+
+Remote value: 'Pass'
+Policy value: 'pass'
+","n/a","",""
+"21156","","","High","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""2.11 Ensure SQL Server is configured to use non-standard ports"": [FAILED]
+
+If enabled, the default SQL Server instance will be assigned a default port of TCP:1433 for TCP/IP communication. Administrators can also configure named instances to use TCP:1433 for communication. TCP:1433 is a widely known SQL Server port and this port assignment should be changed.
+
+Rationale:
+
+Using a non-default port helps protect the database from attacks directed to the default port.
+
+Reference(s) : 
+
+800-53|CM-6,800-171|3.4.2,CSF|PR.IP-1,ITSG-33|CM-6,CSCv6|3.1,LEVEL|1S,PCI-DSSv3.1|2.2.4,PCI-DSSv3.2|2.2.4,PCI-DSS|2.2.3,CSCv6|9
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/sqlserver/CIS_Microsoft_SQL_Server_2012_Benchmark_v1.4.0.pdf
+
+Solution : 
+
+1. In SQL Server Configuration Manager, in the console pane, expand SQL Server Network Configuration, expand Protocols for <InstanceName>, and then double-click the TCP/IP or VIA protocol
+
+2. In the TCP/IP Properties dialog box, on the IP Addresses tab, several IP addresses appear in the format IP1, IP2, up to IPAll. One of these is for the IP address of the loopback adapter, 127.0.0.1. Additional IP addresses appear for each IP Address on the computer
+
+3. Change the TCP Port field from 1433 to another non-standard port or leave the TCP Port field empty and set the TCP Dynamic Ports value to 0 to enable dynamic port assignment and then click OK.
+
+4. In the console pane, click SQL Server Services.
+
+5. In the details pane, right-click SQL Server (<InstanceName>) and then click Restart, to stop and restart SQL Server.
+
+Impact:
+
+Changing the default port will force the DAC (Dedicated Administrator Connection) to listen on a random port. Also, it might make benign applications, such as application firewalls, require special configuration. In general, you should set a static port for consistent usage by applications, including firewalls, instead of using dynamic ports which will be chosen randomly at each SQL Server start up.
+
+Default Value:
+
+By default, default SQL Server instances listen on to TCP/IP traffic on TCP port 1433 and named instances use dynamic ports.
+
+Remote value: 'Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQLServer\SuperSocketNetLib\Tcp\IPAll
+TCP Port : 1433
+FAIL'
+Policy value: 'pass'
+","n/a","",""
+"21156","","","High","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""2.12 Ensure 'Hide Instance' option is set to 'Yes' for Production SQL Server instances"": [FAILED]
+
+Non-clustered SQL Server instances within production environments should be designated as hidden to prevent advertisement by the SQL Server Browser service.
+
+Rationale:
+
+Designating production SQL Server instances as hidden leads to a more secure installation because they cannot be enumerated. However, clustered instances may break if this option is selected.
+
+Reference(s) : 
+
+800-53|CM-6,800-171|3.4.2,CSF|PR.IP-1,ITSG-33|CM-6,CSCv6|3.1,LEVEL|1S,PCI-DSSv3.1|2.2.4,PCI-DSSv3.2|2.2.4,PCI-DSS|2.2.3,CSCv6|9
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/sqlserver/CIS_Microsoft_SQL_Server_2012_Benchmark_v1.4.0.pdf
+
+Solution : 
+
+Perform either the GUI or T-SQL method shown:
+
+GUI Method
+
+1. In SQL Server Configuration Manager, expand SQL Server Network Configuration, right-click Protocols for <server instance>, and then select Properties.
+
+2. On the Flags tab, in the Hide Instance box, select Yes, and then click OK to close the dialog box. The change takes effect immediately for new connections.
+
+T-SQL Method
+
+Execute the following T-SQL to remediate:
+
+EXEC master..xp_instance_regwrite
+
+      @rootkey = N'HKEY_LOCAL_MACHINE',
+
+      @key = N'SOFTWARE\Microsoft\Microsoft SQL Server\MSSQLServer\SuperSocketNetLib',
+
+      @value_name = N'HideInstance',
+
+      @type = N'REG_DWORD',
+
+      @value = 1;
+
+Impact:
+
+This method only prevents the instance from being listed on the network. If the instance is hidden (not exposed by SQL Browser), then connections will need to specify the server and port in order to connect. It does not prevent users from connecting to server if they know the instance name and port.
+
+If you hide a clustered named instance, the cluster service may not be able to connect to the SQL Server. Please refer to the Microsoft documentation reference.
+
+Default Value:
+
+By default, SQL Server instances are not hidden.
+
+Remote value: 'Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQLServer\SuperSocketNetLib
+HideInstance : 0
+FAIL'
+Policy value: 'pass'
+","n/a","",""
+"21156","","","None","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""3.5 Ensure the SQL Server's MSSQL Service Account is Not an Administrator"": [PASSED]
+
+The service account and/or service SID used by the MSSQLSERVER service for a default instance or MSSQL$<InstanceName> for a named instance should not be a member of the Windows Administrator group either directly or indirectly (via a group). This also means that the account known as LocalSystem (aka NT AUTHORITY\SYSTEM) should not be used for the MSSQL service as this account has higher privileges than the SQL Server service requires.
+
+Rationale:
+
+Following the principle of least privilege, the service account should have no more privileges than required to do its job. For SQL Server services, the SQL Server Setup will assign the required permissions directly to the service SID. No additional permissions or privileges should be necessary.
+
+Reference(s) : 
+
+800-53|AC-6,800-171|3.1.5,CN-L3|7.1.3.2(b),CN-L3|7.1.3.2(g),CSF|PR.AC-4,CSF|PR.DS-5,ITSG-33|AC-6,LEVEL|1S,CSCv6|5.1
+
+Remote value: 'Account NT Service\MSSQLSERVER is not a member of local Administrators'
+Policy value: ' is a member '
+","n/a","",""
+"21156","","","None","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""3.6 Ensure the SQL Servers SQLAgent Service Account is Not an Administrator"": [PASSED]
+
+The service account and/or service SID used by the SQLSERVERAGENT service for a default instance or SQLAGENT$<InstanceName> service for a named instance should not be a member of the Windows Administrator group either directly or indirectly (via a group). This also means that the account known as LocalSystem (aka NT AUTHORITY\SYSTEM) should not be used for the SQLAGENT service as this account has higher privileges than the SQL Server service requires.
+
+Rationale:
+
+Following the principle of least privilege, the service account should have no more privileges than required to do its job. For SQL Server services, the SQL Server Setup will assign the required permissions directly to the service SID. No additional permissions or privileges should be necessary.
+
+Reference(s) : 
+
+800-53|AC-6,800-171|3.1.5,CN-L3|7.1.3.2(b),CN-L3|7.1.3.2(g),CSF|PR.AC-4,CSF|PR.DS-5,ITSG-33|AC-6,LEVEL|1S,CSCv6|5.1
+
+Remote value: 'Account NT Service\SQLSERVERAGENT is not a member of local Administrators'
+Policy value: ' is a member '
+","n/a","",""
+"21156","","","None","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""3.7 Ensure the SQL Servers Full-Text Service Account is Not an Administrator"": [PASSED]
+
+The service account and/or service SID used by the MSSQLFDLauncher service for a default instance or MSSQLFDLauncher$<InstanceName> service for a named instance should not be a member of the Windows Administrator group either directly or indirectly (via a group). This also means that the account known as LocalSystem (aka NT AUTHORITY\SYSTEM) should not be used for the Full-Text service as this account has higher privileges than the SQL Server service requires.
+
+Rationale:
+
+Following the principle of least privilege, the service account should have no more privileges than required to do its job. For SQL Server services, the SQL Server Setup will assign the required permissions directly to the service SID. No additional permissions or privileges should be necessary.
+
+Reference(s) : 
+
+800-53|AC-6,800-171|3.1.5,CN-L3|7.1.3.2(b),CN-L3|7.1.3.2(g),CSF|PR.AC-4,CSF|PR.DS-5,ITSG-33|AC-6,LEVEL|1S,CSCv6|5.1
+
+Remote value: 'Account None is not a member of local Administrators'
+Policy value: ' is a member '
+","n/a","",""
+"21156","","","High","172.16.2.66","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""5.1 Ensure 'Maximum number of error log files' is set to greater than or equal to '12'"": [FAILED]
+
+SQL Server error log files must be protected from loss. The log files must be backed up before they are overwritten. Retaining more error logs helps prevent loss from frequent recycling before backups can occur.
+
+Rationale:
+
+The SQL Server error log contains important information about major server events and login attempt information as well.
+
+Reference(s) : 
+
+800-53|AU-11,CIP|007-6-R4,PCI-DSSv3.1|10.7,PCI-DSSv3.2|10.7,CSF|PR.PT-1,ITSG-33|AU-11,HIPAA|164.308(a)(7)(ii)(A),LEVEL|1NS,PCI-DSS|10.7,CSCv6|6.3
+
+See Also : 
+
+https://benchmarks.cisecurity.org/tools2/sqlserver/CIS_Microsoft_SQL_Server_2012_Benchmark_v1.4.0.pdf
+
+Solution : 
+
+Adjust the number of logs to prevent data loss. The default value of 6 may be insufficient for a production environment.  Perform either the GUI or T-SQL method shown:
+
+GUI Method
+
+1. Open SQL Server Management Studio.
+
+2. Open Object Explorer and connect to the target instance.
+
+3. Navigate to the Management tab in Object Explorer and expand. Right click on the SQL Server Logs file and select Configure
+
+4. Check the Limit the number of error log files before they are recycled
+
+5. Set the Maximum number of error log files to greater than or equal to 12
+
+T-SQL Method
+
+Run the following T-SQL to change the number of error log files, replace <NumberAbove12> with your desired number of error log files:
+
+EXEC master.sys.xp_instance_regwrite
+
+       N'HKEY_LOCAL_MACHINE',
+
+       N'Software\Microsoft\MSSQLServer\MSSQLServer',
+
+       N'NumErrorLogs',
+
+       REG_DWORD,
+
+       <NumberAbove12>;
+
+Impact:
+
+Once the max number of error logs is reached, the oldest error log file is deleted each time SQL Server restarts or sp_cycle_errorlog is executed.
+
+Default Value:
+
+6 SQL Server error log files in addition to the current error log file are retained by default.
+
+Remote value: 'NumErrorLogs :  Not Limited'
+Policy value: 'numerrorlogs : *(1[2-9]|[2-9][0-9])'
+","n/a","",""
+"33814","","","High","172.16.2.66","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""Compliance Check Test Error"" : [FAILED]
+(Default): AUDIT_ERROR_DB_LOGIN: an error happened while logging in into the database
+","n/a","",""
+"34220","","","None","172.16.2.66","tcp","80","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 80/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","135","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 135/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","445","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 445/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","1433","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 1433/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","2301","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 2301/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","2381","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 2381/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","3389","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 3389/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","5800","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5800/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","5900","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5900/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","5985","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5985/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","9000","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 9000/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","10000","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 10000/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","10009","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 10009/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","47001","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 47001/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","49152","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49152/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","49153","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49153/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","49154","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49154/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","50696","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50696/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","50697","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50697/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","50745","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50745/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","50746","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50746/tcp was found to be open"
+"34220","","","None","172.16.2.66","tcp","139","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 139/tcp was found to be open"
+"34220","","","None","172.16.2.66","udp","123","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 123/udp was found to be open"
+"34220","","","None","172.16.2.66","udp","500","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 500/udp was found to be open"
+"34220","","","None","172.16.2.66","udp","3389","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 3389/udp was found to be open"
+"34220","","","None","172.16.2.66","udp","4500","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 4500/udp was found to be open"
+"34220","","","None","172.16.2.66","udp","5355","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5355/udp was found to be open"
+"34220","","","None","172.16.2.66","udp","50716","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 50716/udp was found to be open"
+"34220","","","None","172.16.2.66","udp","137","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 137/udp was found to be open"
+"34220","","","None","172.16.2.66","udp","138","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 138/udp was found to be open"
+"34220","","","None","172.16.2.66","tcp","0","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","
+Nessus was able to find 30 open ports.
+"
+"42898","","","None","172.16.2.66","tcp","0","SMB Registry : Stop the Registry Service after the scan (WMI)","The registry service was stopped after the scan.","To perform a full credentialed scan, Nessus needs the ability to
+connect to the remote registry service (RemoteRegistry). If the
+service is down and if Nessus automatically enabled the registry for
+the duration of the scan, this plugins will stop it afterwards.","n/a","","
+The registry service was successfully stopped after the scan."

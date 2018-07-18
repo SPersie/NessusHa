@@ -1,0 +1,19 @@
+openhtml
+    i: NA
+    o: rawhtml
+
+allhosts
+    i: rawhtml
+    o: myhosts
+
+foo
+    i: hosts, rawhtml
+    o: dct
+
+reformat
+    i: mydic
+    o: optdic, listofhosts
+
+reformatforprint
+    i: newdic, hosts, filename
+    o: workbook

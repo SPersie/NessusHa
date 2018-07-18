@@ -1,0 +1,374 @@
+Plugin ID,CVE,CVSS,Risk,Host,Protocol,Port,Name,Synopsis,Description,Solution,See Also,Plugin Output
+"21156","","","Medium","172.16.2.36","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""1.2 Ensure Single-Function Member Servers are Used"": [WARNING]
+
+It is recommended that SQL Server software be installed on a dedicated server. This architectural consideration affords security flexibility in that the database server can be placed on a separate subnet allowing access only from particular hosts and over particular protocols. Degrees of availability are easier to achieve as well - over time, an enterprise can move from a single database server to a failover to a cluster using load balancing or to some combination thereof.
+
+Rationale:
+It is easier to manage (i.e. reduce) the attack surface of the server hosting SQL Server software if the only surfaces to consider are the underlying operating system, SQL Server itself, and any security/operational tooling that may additionally be installed. As noted in the description, availability can be more easily addressed if the database is on a dedicated server.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance.
+
+Reference(s) : 
+
+800-53|CM-7,CIP|007-6-R1,PCI-DSSv3.1|2.2.2,PCI-DSSv3.1|2.2.3,PCI-DSSv3.2|2.2.2,PCI-DSSv3.2|2.2.3,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,CSCv6|9.5,LEVEL|1NS
+
+See Also : 
+
+https://workbench.cisecurity.org/cis/api/v1/file/1761/download
+
+Solution : 
+
+Uninstall excess tooling and/or remove unnecessary roles from the underlying operating system.
+
+Impact:
+It is difficult to see any reasonably adverse impact to making this architectural change, once the costs of making the change have been paid. Custom applications may need to be modified to accommodate database connections over the wire rather than on the host (i.e. using TCP/IP instead of Named Pipes). Additional hardware and operating system licenses may be required to make these architectural changes.
+
+Remote value: 'Name : BFE
+
+Name : BrokerInfrastructure
+
+Name : CDPSvc
+
+Name : CDPUserSvc_116556
+
+Name : CertPropSvc
+
+Name : CoreMessagingRegistrar
+
+Name : CryptSvc
+
+Name : DcomLaunch
+
+Name : Dhcp
+
+Name : DiagTrack
+
+Name : Dnscache
+
+Name : DPS
+
+Name : EventLog
+
+Name : EventSystem
+
+Name : FontCache
+
+Name : gpsvc
+
+Name : IKEEXT
+
+Name : iphlpsvc
+
+Name : KeyIso
+
+Name : LanmanServer
+
+Name : LanmanWorkstation
+
+Name : lfsvc
+
+Name : LicenseManager
+
+Name : lmhosts
+
+Name : LSM
+
+Name : MpsSvc
+
+Name : MSDTC
+
+Name : MsDtsServer130
+
+Name : MSSQLFDLauncher
+
+Name : MSSQLLaunchpad
+
+Name : MSSQLSERVER
+
+Name : MSSQLServerOLAPService
+
+Name : NcbService
+
+Name : Netlogon
+
+Name : netprofm
+
+Name : NlaSvc
+
+Name : nsi
+
+Name : OneSyncSvc_116556
+
+Name : PcaSvc
+
+Name : PlugPlay
+
+Name : PolicyAgent
+
+Name : Power
+
+Name : ProfSvc
+
+Name : RemoteRegistry
+
+Name : ReportServer
+
+Name : RpcEptMapper
+
+Name : RpcSs
+
+Name : SamSs
+
+Name : Schedule
+
+Name : seclogon
+
+Name : SENS
+
+Name : SepMasterService
+
+Name : SessionEnv
+
+Name : ShellHWDetection
+
+Name : Spooler
+
+Name : SQLPBDMS
+
+Name : SQLPBENGINE
+
+Name : SQLTELEMETRY
+
+Name : SQLWriter
+
+Name : SSASTELEMETRY
+
+Name : SSISTELEMETRY130
+
+Name : SsPaAdm
+
+Name : ssPaSetMgr
+
+Name : ssSpnAv
+
+Name : StateRepository
+
+Name : StorSvc
+
+Name : SystemEventsBroker
+
+Name : TermService
+
+Name : Themes
+
+Name : tiledatamodelsvc
+
+Name : TimeBrokerSvc
+
+Name : TrkWks
+
+Name : UALSVC
+
+Name : UmRdpService
+
+Name : UserManager
+
+Name : UsoSvc
+
+Name : uvnc_service
+
+Name : VaultSvc
+
+Name : vmicheartbeat
+
+Name : vmickvpexchange
+
+Name : vmicrdv
+
+Name : vmicshutdown
+
+Name : vmictimesync
+
+Name : vmicvss
+
+Name : VSS
+
+Name : W32Time
+
+Name : Wcmsvc
+
+Name : WinHttpAutoProxySvc
+
+Name : Winmgmt
+
+Name : WinRM
+
+Name : WpnService
+
+Name : wudfsvc'
+Policy value: ''
+","n/a","",""
+"21156","","","Medium","172.16.2.36","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""2.10 Ensure Unnecessary SQL Server Protocols are set to 'Disabled'"": [WARNING]
+
+SQL Server supports Shared Memory, Named Pipes, and TCP/IP protocols. However, SQL Server should be configured to use the bare minimum required based on the organization's needs.
+
+Rationale:
+Using fewer protocols minimizes the attack surface of SQL Server and, in some cases, can protect it from remote attacks.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance.
+
+Reference(s) : 
+
+800-53|CM-7,CIP|007-6-R1,PCI-DSSv3.1|2.2.2,PCI-DSSv3.2|2.2.2,800-171|3.4.6,800-171|3.4.7,CN-L3|7.1.3.5(c),CN-L3|7.1.3.7(d),CSF|PR.IP-1,CSF|PR.PT-3,ITSG-33|CM-7,CSCv6|9.1,LEVEL|1NS
+
+See Also : 
+
+https://workbench.cisecurity.org/cis/api/v1/file/1761/download
+
+Solution : 
+
+Open SQL Server Configuration Manager; go to the SQL Server Network Configuration. Ensure that only required protocols are enabled. Disable protocols not necessary.
+
+Impact:
+The Database Engine (MSSQL and SQLAgent) services must be stopped and restarted for the change to take effect.
+
+Default Value:
+By default, TCP/IP and Shared Memory protocols are enabled on all commercial editions.
+
+Remote value: 'DisplayName                         Enabled
+-----------                         -------
+Dedicated Administrative Connection        
+Named Pipes                         0      
+Shared Memory                       1      
+TCP/IP                              1      
+VIA                                 0'
+Policy value: ''
+","n/a","",""
+"21156","","","None","172.16.2.36","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""3.5 Ensure the SQL Server's MSSQL Service Account is Not an Administrator"": [PASSED]
+
+The service account and/or service SID used by the MSSQLSERVER service for a default instance or MSSQL$<InstanceName> service for a named instance should not be a member of the Windows Administrator group either directly or indirectly (via a group). This also means that the account known as LocalSystem (aka NT AUTHORITY\SYSTEM) should not be used for the MSSQL service as this account has higher privileges than the SQL Server service requires.
+
+Rationale:
+Following the principle of least privilege, the service account should have no more privileges than required to do its job. For SQL Server services, the SQL Server Setup will assign the required permissions directly to the service SID. No additional permissions or privileges should be necessary.
+
+Reference(s) : 
+
+800-53|AC-6,800-171|3.1.5,CN-L3|7.1.3.2(b),CN-L3|7.1.3.2(g),CSF|PR.AC-4,CSF|PR.DS-5,ITSG-33|AC-6,SWIFT-CSCv1|5.1,CSCv6|5.1,LEVEL|1S
+
+See Also : 
+
+https://workbench.cisecurity.org/cis/api/v1/file/1761/download
+
+Remote value: 'Account NT Service\MSSQLSERVER is not a member of local Administrators'
+Policy value: ' is a member '
+","n/a","",""
+"21156","","","None","172.16.2.36","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""3.6 Ensure the SQL Server's SQLAgent Service Account is Not an Administrator"": [PASSED]
+
+The service account and/or service SID used by the SQLSERVERAGENT service for a default instance or SQLAGENT$<InstanceName> service for a named instance should not be a member of the Windows Administrator group either directly or indirectly (via a group). This also means that the account known as LocalSystem (aka NT AUTHORITY\SYSTEM) should not be used for the SQLAGENT service as this account has higher privileges than the SQL Server service requires.
+
+Rationale:
+Following the principle of least privilege, the service account should have no more privileges than required to do its job. For SQL Server services, the SQL Server Setup will assign the required permissions directly to the service SID. No additional permissions or privileges should be necessary.
+
+Reference(s) : 
+
+800-53|AC-6,800-171|3.1.5,CN-L3|7.1.3.2(b),CN-L3|7.1.3.2(g),CSF|PR.AC-4,CSF|PR.DS-5,ITSG-33|AC-6,SWIFT-CSCv1|5.1,CSCv6|5.1,LEVEL|1S
+
+See Also : 
+
+https://workbench.cisecurity.org/cis/api/v1/file/1761/download
+
+Remote value: 'Account NT Service\SQLSERVERAGENT is not a member of local Administrators'
+Policy value: ' is a member '
+","n/a","",""
+"21156","","","None","172.16.2.36","tcp","0","Windows Compliance Checks","Compliance checks for Windows systems.","""3.7 Ensure the SQL Server's Full-Text Service Account is Not an Administrator"": [PASSED]
+
+The service account and/or service SID used by the MSSQLFDLauncher service for a default instance or MSSQLFDLauncher$<InstanceName> service for a named instance should not be a member of the Windows Administrator group either directly or indirectly (via a group). This also means that the account known as LocalSystem (aka NT AUTHORITY\SYSTEM) should not be used for the Full-Text service as this account has higher privileges than the SQL Server service requires.
+
+Rationale:
+Following the principle of least privilege, the service account should have no more privileges than required to do its job. For SQL Server services, the SQL Server Setup will assign the required permissions directly to the service SID. No additional permissions or privileges should be necessary.
+
+Reference(s) : 
+
+800-53|AC-6,800-171|3.1.5,CN-L3|7.1.3.2(b),CN-L3|7.1.3.2(g),CSF|PR.AC-4,CSF|PR.DS-5,ITSG-33|AC-6,SWIFT-CSCv1|5.1,CSCv6|5.1,LEVEL|1S
+
+See Also : 
+
+https://workbench.cisecurity.org/cis/api/v1/file/1761/download
+
+Remote value: 'Account NT Service\MSSQLFDLauncher is not a member of local Administrators'
+Policy value: ' is a member '
+","n/a","",""
+"33814","","","High","172.16.2.36","tcp","0","Database Compliance Checks","Compliance checks for database servers.","""Compliance Check Test Error"" : [FAILED]
+(Default): AUDIT_ERROR_DB_LOGIN: an error happened while logging in into the database
+","n/a","",""
+"34220","","","None","172.16.2.36","tcp","135","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 135/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","445","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 445/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","1433","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 1433/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","2383","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 2383/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","5800","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5800/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","5900","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5900/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","5985","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5985/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","16450","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 16450/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","16451","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 16451/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","16452","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 16452/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","16453","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 16453/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","17001","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 17001/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","47001","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 47001/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","49664","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49664/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","49665","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 49665/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","61350","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61350/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","61460","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 61460/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","63060","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63060/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","63061","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63061/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","63066","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63066/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","63072","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63072/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","63086","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 63086/tcp was found to be open"
+"34220","","","None","172.16.2.36","tcp","139","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 139/tcp was found to be open"
+"34220","","","None","172.16.2.36","udp","123","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 123/udp was found to be open"
+"34220","","","None","172.16.2.36","udp","500","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 500/udp was found to be open"
+"34220","","","None","172.16.2.36","udp","4500","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 4500/udp was found to be open"
+"34220","","","None","172.16.2.36","udp","5050","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5050/udp was found to be open"
+"34220","","","None","172.16.2.36","udp","5353","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5353/udp was found to be open"
+"34220","","","None","172.16.2.36","udp","5355","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 5355/udp was found to be open"
+"34220","","","None","172.16.2.36","udp","137","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 137/udp was found to be open"
+"34220","","","None","172.16.2.36","udp","138","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","Port 138/udp was found to be open"
+"34220","","","None","172.16.2.36","tcp","0","Netstat Portscanner (WMI)","Remote open ports can be enumerated via WMI.","Using the WMI interface, Nessus was able to run 'netstat' on the
+remote host to enumerate the open ports.","n/a","https://en.wikipedia.org/wiki/Netstat","
+Nessus was able to find 31 open ports.
+"
+"42898","","","None","172.16.2.36","tcp","0","SMB Registry : Stop the Registry Service after the scan (WMI)","The registry service was stopped after the scan.","To perform a full credentialed scan, Nessus needs the ability to
+connect to the remote registry service (RemoteRegistry). If the
+service is down and if Nessus automatically enabled the registry for
+the duration of the scan, this plugins will stop it afterwards.","n/a","","
+The registry service was successfully stopped after the scan."
