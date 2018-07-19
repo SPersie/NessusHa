@@ -167,13 +167,17 @@ def reformatforprint(newdic, hosts, filename):
                                              'format': formatg})
     workbook.close()
     optpath =os.path.abspath('%r_Output.xlsx' %outputpath)
+    optpathmc =os.path.abspath('%r_Output.xlsx' %("'" +outputpath +"'"))
     print("Output path: " + optpath)
 
     if platform =="win32":
         os.system("start " + optpath)
 
+    elif platform =="linux":
+        os.system("xdg-open " + optpath)
+
     else:
-        os.system("open" +optpath)
+        os.system("open " +optpathmc)
 
 
 
