@@ -1,6 +1,6 @@
-## Nessus Host Assessment Parser
+## Nessus Host Assessment Crawler
 
-Parse Nessus HA html to xlsx
+Extract Nessus HA data to xlsx
 
 ## Getting Started
 
@@ -24,6 +24,11 @@ python get-pip.py
 The following command is to install nessusha.
 ```
 pip install nessusha
+```
+
+For Mac User, you might have both python2 and python3. You may run the following command instead.
+```
+pip3 install nessusha
 ```
 
 Now we are good to go. :)
@@ -57,21 +62,35 @@ Current package allows user to call the api to extract all the checks and corres
 
 ## Versioning
 
-Current Version: nessusha 0.2.1
+Current Version: 0.3.0
 
-Now we support MacOS and Linux! It will open the output file once it finishes.
+1. Now we can extract policy values which is your desired value into the output file.
+
+2. Only html files are accepted as input file.
 
 History Version: 
 
-1. nessusha 0.2.0
+1. 0.2.3
+
+    Bug fixed for linux not open the output file properly.
+
+2. nessusha 0.2.2
+
+    Bug fixed for the output file is not opened properly. Pre requests are added to setup file.
+
+3. nessusha 0.2.1
+
+    Now we support MacOS and Linux! It will open the output file once it finishes.
+
+4. nessusha 0.2.0
 
     Documentation and other functions are added.
 
-2. nessusha 0.1.2
+5. nessusha 0.1.2
 
-3. nessusha 0.1.1
+6. nessusha 0.1.1
 
-4. nessusha 0.1.0
+7. nessusha 0.1.0
 
 
 ## Authors
