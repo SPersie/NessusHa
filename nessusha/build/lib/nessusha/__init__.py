@@ -23,12 +23,17 @@ from sys import platform
 def openhtml():
     Tk().withdraw()
     filename =filedialog.askopenfilename()
-    if platform =="win32":
-        filename.replace("/", "\\\\")
 
-    rawhtml = open(filename,
-                   encoding="utf-8").readlines()
-    return rawhtml, filename
+    if filename.endswith('html'):
+        if platform =="win32":
+            filename.replace("/", "\\\\")
+
+        rawhtml = open(filename,
+                       encoding="utf-8").readlines()
+        return rawhtml, filename
+    else:
+        print("Invalid Input File")
+        sys.exit()
 
 
 def allhosts(rawhtml):
@@ -118,16 +123,16 @@ def reformat(mydic):
     return optdic, listofhosts
 
 
-def reformatforprint(newdic, hosts, filename):
+def reformatforprint(olddic, newdic, hosts, filename):
     row = 1
-    colum = 1
+    colum = 2
     dicofhosts = {}
 
     outputpath = re.findall("(?<=\/)(\w+)(?=\.\D+)", filename)[0]
     workbook = xlsxwriter.Workbook('%r_Output.xlsx' %outputpath)
     worksheet = workbook.add_worksheet()
     worksheet.set_column(0, 0, 51)
-    worksheet.set_column(1, len(hosts), 18)
+    worksheet.set_column(1, len(hosts) + 1, 18)
 
     # Wrap content
     cell_format = workbook.add_format()
@@ -141,6 +146,10 @@ def reformatforprint(newdic, hosts, filename):
                                    'font_color': '#006100'})
 
     bold = workbook.add_format({'bold': 1})
+
+    # put in the policy value
+    worksheet.write(0, 1, "Desired Value")
+
     for host in hosts:
         worksheet.write(0, colum, host)
         dicofhosts[host] = colum
@@ -150,10 +159,14 @@ def reformatforprint(newdic, hosts, filename):
     for check in newdic:
         # print(check)
         worksheet.write(row, 0, check, cell_format)
+
+        # write in the policy value
+
         # print(newdic[check])
         for thehost in newdic[check]:
             # print(dicofhosts[thehost])
             worksheet.write(row, dicofhosts[thehost], newdic[check][thehost], cell_format)
+            worksheet.write(row, 1, olddic[thehost][check]["Policy Value"])
         row +=1
 
     worksheet.conditional_format('A1:Z999', {'type': 'text',
@@ -185,7 +198,7 @@ def htmlparser():
     haha =foo(hhosts, rawhtml)
 
     a, b = reformat(haha)
-    reformatforprint(a, b, filename)
+    reformatforprint(haha, a, b, filename)
     print("Done! Next!")
 
 
