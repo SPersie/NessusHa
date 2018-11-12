@@ -4,7 +4,8 @@ Extract Nessus HA data to xlsx
 
 ## Getting Started
 
-This package is for those who are suffering from Nesses HA work. Good luck :)
+This package is for those who are suffering from Nesses HA work. Good luck :) < /b>
+You can find the package here: https://pypi.org/project/nessusha/
 
 
 
